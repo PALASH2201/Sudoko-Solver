@@ -6,6 +6,7 @@ import CreateGrid from "./Grid";
 
 const Board = () => {
   const [grid, setGrid] = useState([]);
+  const [ansGrid, setAnsGrid] = useState([]);
   const [invalidRows, setInvalidRows] = useState(new Set());
   const [invalidCols, setInvalidCols] = useState(new Set());
   const [invalidCellRowIndex, setInvalidCellRowIndex] = useState(null);
@@ -14,6 +15,9 @@ const Board = () => {
   const handleFetchBoard = async () => {
     const board = await fetchBoard(setGrid);
     setGrid(board);
+    //Creating a deep copy
+    const boardCopy = board.map((row) => row.map((cell) => ({ ...cell })));
+    setAnsGrid(boardCopy);
   };
 
   const handleInputChange = (e, rowIndex, colIndex) => {
@@ -56,16 +60,18 @@ const Board = () => {
 
     for (let r = boxRowStart; r < boxRowStart + sqrt; r++) {
       for (let d = boxColStart; d < boxColStart + sqrt; d++) {
+        console.log("Box checker value:", value);
+        console.log("Each Box Value:", grid[r][d].value);
         if (
           r !== rowIndex &&
-          d != colIndex &&
+          d !== colIndex &&
           grid[r][d].value === value &&
           value !== ""
         ) {
           setInvalidCellRowIndex(r);
           setInvalidCellColIndex(d);
           break;
-        } else {
+        }else if(value===""){
           setInvalidCellColIndex(null);
           setInvalidCellRowIndex(null);
         }
@@ -74,7 +80,8 @@ const Board = () => {
   };
 
   const generateAnswer = () => {
-    const gridCopy = grid.map((row) =>
+    console.log("AnswerGrid", ansGrid);
+    const gridCopy = ansGrid.map((row) =>
       row.map((cell) =>
         cell.value === "0" || cell.value === ""
           ? { value: 0, classname: "problemCell" }
@@ -87,6 +94,10 @@ const Board = () => {
         cell.value = cell.value.toString();
       })
     );
+    setInvalidRows(new Set());
+    setInvalidCols(new Set());
+    setInvalidCellColIndex(null);
+    setInvalidCellRowIndex(null);
     setGrid(gridCopy);
   };
 
