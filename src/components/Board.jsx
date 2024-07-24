@@ -75,11 +75,19 @@ const Board = () => {
 
   const generateAnswer = () => {
     const gridCopy = grid.map((row) =>
-      row.map((cell) => (cell === "0" || cell === "" ? 0 : parseInt(cell)))
+      row.map((cell) =>
+        cell.value === "0" || cell.value === ""
+          ? { value: 0, classname: "problemCell" }
+          : { value: parseInt(cell.value), classname: "problemCell" }
+      )
     );
     solveSudoku(gridCopy);
-    console.log(`Solved grid: ${gridCopy}`);
-    setGrid(gridCopy.map((row) => row.map((cell) => cell.toString())));
+    gridCopy.map((row) =>
+      row.map((cell) => {
+        cell.value = cell.value.toString();
+      })
+    );
+    setGrid(gridCopy);
   };
 
   return (

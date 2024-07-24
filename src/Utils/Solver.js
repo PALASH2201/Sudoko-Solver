@@ -5,7 +5,7 @@ export function solveSudoku(grid) {
   
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (grid[i][j] === 0 || grid[i][j] === '') {
+        if (grid[i][j].value === 0 || grid[i][j].value === '') {
           row = i;
           col = j;
           isEmpty = false;
@@ -23,11 +23,11 @@ export function solveSudoku(grid) {
   
     for (let num = 1; num <= 9; num++) {
       if (isSafe(grid, row, col, num)) {
-        grid[row][col] = num;
+        grid[row][col].value = num;
         if (solveSudoku(grid)) {
           return true;
         } else {
-          grid[row][col] = 0;
+          grid[row][col].value = 0;
         }
       }
     }
@@ -37,12 +37,12 @@ export function solveSudoku(grid) {
   function isSafe(grid, row, col, num) {
     
     for (let d = 0; d < 9; d++) {
-      if (grid[row][d] === num) {
+      if (grid[row][d].value === num) {
         return false;
       }
     }
     for (let r = 0; r < 9; r++) {
-      if (grid[r][col] === num) {
+      if (grid[r][col].value === num) {
         return false;
       }
     }
@@ -52,7 +52,7 @@ export function solveSudoku(grid) {
   
     for (let r = boxRowStart; r < boxRowStart + sqrt; r++) {
       for (let d = boxColStart; d < boxColStart + sqrt; d++) {
-        if (grid[r][d] === num) {
+        if (grid[r][d].value === num) {
           return false;
         }
       }
