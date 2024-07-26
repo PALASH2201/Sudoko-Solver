@@ -3,11 +3,11 @@
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
     gap: 0px;
-    width: 50%;
-    max-width: 400px;
-    max-height: 400px;
-    min-width: 160px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    min-width: 300px;
+    margin-bottom:20px;
     border: 2px solid black;
 }
 
@@ -23,10 +23,14 @@
 
 .userCell{
     color: black;
+    font-size: large;
+    font-weight: bold;
 }
 
 .problemCell{
     color: blue;
+    font-weight: bold;
+    font-size: large;
 }
 
 .specialCol{
@@ -46,6 +50,9 @@
 }
 
 @media (max-width: 600px) {
+    .grid-container{
+        width: 80%;
+    }
     .cell {
         padding: 0.2rem;
         font-size: 1rem;

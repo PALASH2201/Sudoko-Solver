@@ -3,6 +3,8 @@ import { solveSudoku } from "../Utils/Solver";
 import React from "react";
 import { fetchBoard } from "../Utils/helpers";
 import CreateGrid from "./Grid";
+import Loader from "./Loader";
+
 
 const Board = () => {
   const [grid, setGrid] = useState([]);
@@ -11,9 +13,12 @@ const Board = () => {
   const [invalidCols, setInvalidCols] = useState(new Set());
   const [invalidCellRowIndex, setInvalidCellRowIndex] = useState(null);
   const [invalidCellColIndex, setInvalidCellColIndex] = useState(null);
+  const [fetching,setFetching] = useState();
 
   const handleFetchBoard = async () => {
+    setFetching(true);
     const board = await fetchBoard(setGrid);
+    setFetching(false);
     setGrid(board);
     //Creating a deep copy
     const boardCopy = board.map((row) => row.map((cell) => ({ ...cell })));
@@ -71,7 +76,7 @@ const Board = () => {
           setInvalidCellRowIndex(r);
           setInvalidCellColIndex(d);
           break;
-        }else if(value===""){
+        } else if (value === "") {
           setInvalidCellColIndex(null);
           setInvalidCellRowIndex(null);
         }
@@ -103,7 +108,7 @@ const Board = () => {
 
   return (
     <>
-      {grid.length !== 0 ? (
+      {grid.length !== 0 && 
         <div className="grid-container">
           <CreateGrid
             grid={grid}
@@ -114,23 +119,24 @@ const Board = () => {
             handleInputChange={handleInputChange}
           />
         </div>
-      ) : null}
+      }
       <button
         type="button"
-        className="btn btn-outline-info generate-board"
+        className="btn btn-info generate-board"
         onClick={handleFetchBoard}
       >
         Generate new board
       </button>
-      {grid.length !== 0 ? (
+      {grid.length !== 0 && 
         <button
           type="button"
-          className="btn btn-outline-success generate-answer"
+          className="btn btn-success generate-answer"
           onClick={generateAnswer}
         >
           Generate answer
         </button>
-      ) : null}
+      }
+      {fetching && <Loader />} 
     </>
   );
 };

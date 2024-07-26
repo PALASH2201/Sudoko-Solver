@@ -17,6 +17,7 @@ const CreateGrid = ({
       } ${rowIndex === 3 || rowIndex === 6 ? "specialRow" : ""}`.trim();
       return (
         <input
+          style={{background:"transparent"}}
           key={`${rowIndex}-${colIndex}`}
           value={cell.value === "0" ? "" : cell.value}
           type="text"

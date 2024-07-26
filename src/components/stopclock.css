@@ -1,0 +1,33 @@
+.stopclock-container{
+    margin: 30px ;
+}
+
+.timer-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+} 
+
+.start,.reset,.pause{
+    border: 0px ;
+    background: transparent;
+}
+
+.pause{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.timer-container{
+    color: black;
+    font-size: 40px;
+    font-weight: bold;
+}
