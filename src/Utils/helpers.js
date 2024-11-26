@@ -1,3 +1,4 @@
+import React from "react";
 export const fetchBoard = async (setGrid) => {
   try {
     setGrid([]);
@@ -18,7 +19,7 @@ export const fetchBoard = async (setGrid) => {
 };
 
 export const initializeRefs = (grid, cellRefs) => {
-  cellRefs.current = grid.map((row, rowIndex) =>
-    row.map((_, colIndex) => React.createRef())
+  cellRefs.current = grid.map((row) =>
+    row.map(() => React.createRef())
   );
 };
