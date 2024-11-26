@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { solveSudoku } from "../Utils/Solver";
-import React from "react";
 import { fetchBoard } from "../Utils/helpers";
 import CreateGrid from "./Grid";
 import Loader from "./Loader";
